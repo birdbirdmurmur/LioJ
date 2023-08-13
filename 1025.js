@@ -16,11 +16,33 @@ rl.on('close', function () {
 
 // Here
 function solve(lines) {
-    const n = Number(lines[0])
-    const m = Number(lines[1])
-    for (let i = 1; i <= n; i++) {
-        for (let j = 1; j <= m; j++) {
-            console.log(`${i}*${j}=${i * j}`)
+    let temp = lines[0].split(' ');
+    let n = Number(temp[0]);
+    let m = Number(temp[1]);
+
+    for (let i = n; i <= m; i++) {
+        if (isNarcissistic(i)) {
+            console.log(i);
         }
     }
+}
+
+function isNarcissistic(n) {
+    let m = n;
+    let digits = 0;
+    let temp = n;
+    while (temp !== 0) {
+        temp = Math.floor(temp / 10);
+        digits++;
+    }
+
+    let sum = 0;
+    temp = n;
+    while (temp !== 0) {
+        let num = temp % 10;
+        sum += num ** digits;
+        temp = Math.floor(temp / 10);
+    }
+
+    return sum === n;
 }
